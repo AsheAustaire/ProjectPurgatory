@@ -19,6 +19,10 @@ class Api::V1::SongsController < ApplicationController
     spotAuth()
     name = params[:name]
     @results = RSpotify::Artist.search("#{name}")
+    @results.each() do |artist|
+      puts artist.name
+      Artist.find_or_create_by({name: artist.name})
+    end
     render json: @results
   end
 
