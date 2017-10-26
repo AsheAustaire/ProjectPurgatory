@@ -15,12 +15,11 @@ class Api::V1::SongsController < ApplicationController
     end
   end
 
-  def search_post
+  def search
     spotAuth()
-    @year = params[:year]
-    @genre = params[:genre]
-    @results = RSpotify::Base.search(@genre, 'artist')
-    render json: {'results': @results}
+    name = params[:name]
+    @results = RSpotify::Artist.search("#{name}")
+    render json: @results
   end
 
   private
